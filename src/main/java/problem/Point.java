@@ -67,7 +67,7 @@ public class Point {
     void render(GL2 gl)
     {
         Figures.renderPoint(gl, new Vector2(0.1,0.1), 10);
-        Figures.renderCircle(gl, new Vector2(0, 0), 0.5);
+        //Figures.renderCircle1(gl, new Vector2(0, 0), 0.5);
     }
 
     /**

@@ -135,10 +135,12 @@ public class Problem {
      */
     public void render(GL2 gl)
     {
-       Figures.renderPoint(gl, new Vector2(0.1,0.1), 10);
+        Circle circle = new Circle(new Vector2(0, 0), 0.5);
+        circle.render(gl);
+       //Figures.renderPoint(gl, new Vector2(0.1,0.1), 10);
 //        Figures.render(gl, new Vector2(0.7, -0.7), new Vector2(0.9, -0.1), 10);
 //        Figures.render(gl, new Vector2(0.3,-0.3), new Vector2(-0.8, 0.8), new Vector2(0.35, 0.55), true);
 //        Figures.render(gl, new Vector2(0.3,-0.3), new Vector2(-0.8, 0.8), new Vector2(0.35, 0.55), new Vector2(0.77, -0.23), false);
-        Figures.renderCircle(gl, new Vector2(0, 0), 0.5);
+        //Figures.renderCircle(gl, );
     }
 }
