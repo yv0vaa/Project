@@ -16,13 +16,13 @@ public class Problem {
      * текст задачи
      */
     public static final String PROBLEM_TEXT = "ПОСТАНОВКА ЗАДАЧИ:\n" +
-            "Заданы два множества точек в пространстве.\n" +
-            "Требуется построить пересечения и разность этих множеств";
+            "На плоскости задано множество точек. Найти окружность наименьшей площади, внутри которой находятся все точки множества.\n" +
+            " Если таких окружностей несколько, найти любую. В качестве ответа нарисовать найденную окружность.";
 
     /**
      * заголовок окна
      */
-    public static final String PROBLEM_CAPTION = "Итоговый проект ученика 10-7 Иванова Ивана";
+    public static final String PROBLEM_CAPTION = "Итоговый проект ученика 10-7 класса Захарова Владимира";
 
     /**
      * путь к файлу
@@ -34,6 +34,8 @@ public class Problem {
      */
     private ArrayList<Point> points;
 
+    Circle resultCircle;
+
     /**
      * Конструктор класса задачи
      */
@@ -44,8 +46,8 @@ public class Problem {
     /**
      * Добавить точку
      *
-     * @param x      координата X точки
-     * @param y      координата Y точки
+     * @param x координата X точки
+     * @param y координата Y точки
      */
     public void addPoint(double x, double y) {
         Point point = new Point(x, y);
@@ -57,18 +59,19 @@ public class Problem {
      */
     public void solve() {
         // перебираем пары точек
-        for (Point p : points) {
-            for (Point p2 : points) {
-                // если точки являются разными
-                if (p != p2) {
-                    // если координаты у них совпадают
-                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
-                        p.isSolution = true;
-                        p2.isSolution = true;
-                    }
-                }
-            }
-        }
+//        for (Point p : points) {
+//            for (Point p2 : points) {
+//                // если точки являются разными
+//                if (p != p2) {
+//                    // если координаты у них совпадают
+//                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
+//                        p.isSolution = true;
+//                        p2.isSolution = true;
+//                    }
+//                }
+//            }
+//        }
+        resultCircle = new Circle(new Vector2(0, 0), 0.5);
     }
 
     /**
@@ -131,13 +134,12 @@ public class Problem {
      *
      * @param gl переменная OpenGL для рисования
      */
-    public void render(GL2 gl)
-    {
-        for (Point point:points)
+    public void render(GL2 gl) {
+        for (Point point : points)
             point.render(gl);
-        Circle circle = new Circle(new Vector2(0, 0), 0.5);
-        circle.render(gl);
-       //Figures.renderPoint(gl, new Vector2(0.1,0.1), 10);
+        if (resultCircle != null)
+            resultCircle.render(gl);
+        //Figures.renderPoint(gl, new Vector2(0.1,0.1), 10);
 //        Figures.render(gl, new Vector2(0.7, -0.7), new Vector2(0.9, -0.1), 10);
 //        Figures.render(gl, new Vector2(0.3,-0.3), new Vector2(-0.8, 0.8), new Vector2(0.35, 0.55), true);
 //        Figures.render(gl, new Vector2(0.3,-0.3), new Vector2(-0.8, 0.8), new Vector2(0.35, 0.55), new Vector2(0.77, -0.23), false);
