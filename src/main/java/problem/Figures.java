@@ -7,15 +7,15 @@ import javax.media.opengl.GL2GL3;
 public class Figures {
 
     public static void renderPoint(GL2 gl, Vector2 pos, int size) {
-        gl.glBegin(GL.GL_POINTS);
         gl.glPointSize(size);
+        gl.glBegin(GL.GL_POINTS);
         gl.glVertex2d(pos.x, pos.y);
         gl.glEnd();
     }
 
     public static void renderLine(GL2 gl, Vector2 pos1, Vector2 pos2, int size) {
+        gl.glLineWidth(size);
         gl.glBegin(GL2GL3.GL_LINES);
-        gl.glPointSize(size);
         gl.glVertex2d(pos1.x, pos1.y);
         gl.glVertex2d(pos2.x, pos2.y);
         gl.glEnd();

@@ -46,10 +46,9 @@ public class Problem {
      *
      * @param x      координата X точки
      * @param y      координата Y точки
-     * @param setVal номер множества
      */
-    public void addPoint(double x, double y, int setVal) {
-        Point point = new Point(x, y, setVal);
+    public void addPoint(double x, double y) {
+        Point point = new Point(x, y);
         points.add(point);
     }
 
@@ -84,9 +83,8 @@ public class Problem {
             while (sc.hasNextLine()) {
                 double x = sc.nextDouble();
                 double y = sc.nextDouble();
-                int setVal = sc.nextInt();
                 sc.nextLine();
-                Point point = new Point(x, y, setVal);
+                Point point = new Point(x, y);
                 points.add(point);
             }
         } catch (Exception ex) {
@@ -101,7 +99,7 @@ public class Problem {
         try {
             PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
             for (Point point : points) {
-                out.printf("%.2f %.2f %d\n", point.x, point.y, point.setNumber);
+                out.printf("%.2f %.2f %d\n", point.x, point.y);
             }
             out.close();
         } catch (IOException ex) {
@@ -135,6 +133,8 @@ public class Problem {
      */
     public void render(GL2 gl)
     {
+        for (Point point:points)
+            point.render(gl);
         Circle circle = new Circle(new Vector2(0, 0), 0.5);
         circle.render(gl);
        //Figures.renderPoint(gl, new Vector2(0.1,0.1), 10);
