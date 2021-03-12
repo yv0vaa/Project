@@ -32,7 +32,7 @@ public class Problem {
     /**
      * список точек
      */
-    private ArrayList<Point> points;
+    private  ArrayList<Point> points;
 
     Circle resultCircle;
 
@@ -58,6 +58,18 @@ public class Problem {
      * Решить задачу
      */
     public void solve() {
+        Point max = (0, 0);
+        Point min = (0, 0);
+        // нахожу крайние точки
+        for (Point p: points){
+            if (p.x > max.x) max.x = p.x;
+            else if (p.x < min.x) min.x = p.x;
+            if (p.y > max.y) max.y = p.y;
+            else if (p.y < min.y) min.y = p.y;
+        }
+        // нахожу диаметр
+        double dx = Math.sqrt(xmax*xmax)
+
         // перебираем пары точек
 //        for (Point p : points) {
 //            for (Point p2 : points) {
