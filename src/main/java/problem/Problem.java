@@ -16,8 +16,8 @@ public class Problem {
      * текст задачи
      */
     public static final String PROBLEM_TEXT = "ПОСТАНОВКА ЗАДАЧИ:\n" +
-            "На плоскости задано множество точек. Найти окружность наименьшей площади, внутри которой находятся все точки множества.\n" +
-            " Если таких окружностей несколько, найти любую. В качестве ответа нарисовать найденную окружность.";
+            "На плоскости задано множество точек. \n Найти окружность наименьшей площади, внутри которой находятся \n все точки множества.\n" +
+            " Если таких окружностей несколько, найти любую.\n В качестве ответа нарисовать найденную окружность.";
 
     /**
      * заголовок окна
@@ -57,18 +57,24 @@ public class Problem {
     /**
      * Решить задачу
      */
+    public double Dist(Point p)
+    {
+        return Math.sqrt(p.x * p.x + p.y * p.y);
+    }
     public void solve() {
-        Point max = (0, 0);
-        Point min = (0, 0);
-        // нахожу крайние точки
-        for (Point p: points){
-            if (p.x > max.x) max.x = p.x;
-            else if (p.x < min.x) min.x = p.x;
-            if (p.y > max.y) max.y = p.y;
-            else if (p.y < min.y) min.y = p.y;
+        Point max1 = new Point(0, 0);
+        Point max2 = new Point(0, 0);
+        Point max3 = new Point(0, 0);
+        Point max4 = new Point(0, 0);
+//        нахожу крайние точки
+        for (Point p: points)
+        {
+            if(p.x > 0 && p.y > 0 && Dist(p) > Dist(max1)) max1 = p;
+            else if (p.x < 0 && p.y > 0 && Dist(p) > Dist(max2)) max2 = p;
+            else if (p.x < 0 && p.y < 0 && Dist(p) > Dist(max3)) max3 = p;
+            else if (p.x > 0 && p.y < 0 && Dist(p) > Dist(max4)) max4 = p;
         }
-        // нахожу диаметр
-        double dx = Math.sqrt(xmax*xmax)
+//        нахожу центр и диаметр
 
         // перебираем пары точек
 //        for (Point p : points) {
@@ -114,7 +120,7 @@ public class Problem {
         try {
             PrintWriter out = new PrintWriter(new FileWriter(FILE_NAME));
             for (Point point : points) {
-                out.printf("%.2f %.2f %d\n", point.x, point.y);
+                out.printf("%.2f %.2f\n", point.x, point.y);
             }
             out.close();
         } catch (IOException ex) {
