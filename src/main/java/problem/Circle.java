@@ -12,4 +12,12 @@ public class Circle {
     public void render(GL2 gl){
         Figures.myRenderCircle(gl, center, radius);
     }
+
+    @Override
+    public String toString() {
+        return "Circle{" +
+                "center=" + center +
+                ", radius=" + radius +
+                '}';
+    }
 }

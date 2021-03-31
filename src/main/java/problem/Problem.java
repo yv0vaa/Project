@@ -32,7 +32,7 @@ public class Problem {
     /**
      * список точек
      */
-    private  ArrayList<Point> points;
+    private ArrayList<Point> points;
 
     Circle resultCircle;
 
@@ -57,39 +57,51 @@ public class Problem {
     /**
      * Решить задачу
      */
-    public double Dist(Point p)
-    {
-        return Math.sqrt(p.x * p.x + p.y * p.y);
+    public double dist(Point p1, Point p2) {
+        return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
-    public void solve() {
-        Point max1 = new Point(0, 0);
-        Point max2 = new Point(0, 0);
-        Point max3 = new Point(0, 0);
-        Point max4 = new Point(0, 0);
-//        нахожу крайние точки
-        for (Point p: points)
-        {
-            if(p.x > 0 && p.y > 0 && Dist(p) > Dist(max1)) max1 = p;
-            else if (p.x < 0 && p.y > 0 && Dist(p) > Dist(max2)) max2 = p;
-            else if (p.x < 0 && p.y < 0 && Dist(p) > Dist(max3)) max3 = p;
-            else if (p.x > 0 && p.y < 0 && Dist(p) > Dist(max4)) max4 = p;
-        }
-//        нахожу центр и диаметр
 
-        // перебираем пары точек
-//        for (Point p : points) {
-//            for (Point p2 : points) {
-//                // если точки являются разными
-//                if (p != p2) {
-//                    // если координаты у них совпадают
-//                    if (Math.abs(p.x - p2.x) < 0.0001 && Math.abs(p.y - p2.y) < 0.0001) {
-//                        p.isSolution = true;
-//                        p2.isSolution = true;
-//                    }
-//                }
-//            }
-//        }
-        resultCircle = new Circle(new Vector2(0, 0), 0.5);
+    public boolean IsPointInCircle(double x, double  y, double xc, double yc, double r){
+        return sqrt((x - xc) * (x - xc) + (y - yc) * (y - yc)) <= r;
+    }
+
+    public Point curCircle(Point p1, Point p2, Point p3) {
+        double a = p2.x - p1.x;
+        double b = p2.y - p1.y;
+        double c = p3.x - p1.x;
+        double d = p3.y - p1.y;
+
+        double e = a * (p2.x + p1.x) + b * (p2.y + p1.y);
+        double f = c * (p3.x + p1.x) + d * (p3.y + p1.y);
+        double g = 2 * (a * (p3.y - p2.y) - b * (p3.x - p2.x));
+
+        if (g == 0) return null;
+        else {
+            double cx = (d * e - b * f) / g;
+            double cy = (a * f - c * e) / g;
+            return new Point(cx, cy);
+        }
+
+    }
+
+    public void solve() {
+        System.out.println("solve");
+        Point center = new Point(0, 0);
+        double max = 0;
+//        Перебор всех троек точек. Поиск окружности наибольшего радиуса
+        for (Point p1 : points) {
+            for (Point p2 : points) {
+                for (Point p3 : points) {
+                    Point centerCircle = curCircle(p1, p2, p3);
+                    if (centerCircle != null && dist(p3, centerCircle) > max) {
+                        max = dist(p3, centerCircle);
+                        center = centerCircle;
+                    }
+                }
+            }
+        }
+        resultCircle = new Circle(new Vector2(center.x, center.y), max);
+        System.out.println(resultCircle);
     }
 
     /**
@@ -145,6 +157,7 @@ public class Problem {
      */
     public void clear() {
         points.clear();
+        resultCircle = null;
     }
 
     /**
@@ -157,10 +170,5 @@ public class Problem {
             point.render(gl);
         if (resultCircle != null)
             resultCircle.render(gl);
-        //Figures.renderPoint(gl, new Vector2(0.1,0.1), 10);
-//        Figures.render(gl, new Vector2(0.7, -0.7), new Vector2(0.9, -0.1), 10);
-//        Figures.render(gl, new Vector2(0.3,-0.3), new Vector2(-0.8, 0.8), new Vector2(0.35, 0.55), true);
-//        Figures.render(gl, new Vector2(0.3,-0.3), new Vector2(-0.8, 0.8), new Vector2(0.35, 0.55), new Vector2(0.77, -0.23), false);
-        //Figures.renderCircle(gl, );
     }
 }
