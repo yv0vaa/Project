@@ -32,7 +32,7 @@ public class Problem {
     /**
      * список точек
      */
-    private ArrayList<Point> points;
+    private ArrayList <Point> points;
 
     Circle resultCircle;
 
@@ -61,53 +61,50 @@ public class Problem {
         return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
 
-    public boolean IsPointInCircle(double x, double  y, double xc, double yc, double r){
-        return sqrt((x - xc) * (x - xc) + (y - yc) * (y - yc)) <= r;
-    }
-
-    public Point curCircle(Point p1, Point p2, Point p3) {
-        double a = p2.x - p1.x;
-        double b = p2.y - p1.y;
-        double c = p3.x - p1.x;
-        double d = p3.y - p1.y;
-
-        double e = a * (p2.x + p1.x) + b * (p2.y + p1.y);
-        double f = c * (p3.x + p1.x) + d * (p3.y + p1.y);
-        double g = 2 * (a * (p3.y - p2.y) - b * (p3.x - p2.x));
-
-        if (g == 0) return null;
-        else {
-            double cx = (d * e - b * f) / g;
-            double cy = (a * f - c * e) / g;
-            return new Point(cx, cy);
-        }
-
-    }
+//    public boolean IsPointInCircle(double x, double y, double xc, double yc, double r) {
+//        return Math.sqrt((x - xc) * (x - xc) + (y - yc) * (y - yc)) <= r;
+//    }
+//
+//    public Point curCircle(Point p1, Point p2, Point p3) {
+//        double a = p2.x - p1.x;
+//        double b = p2.y - p1.y;
+//        double c = p3.x - p1.x;
+//        double d = p3.y - p1.y;
+//
+//        double e = a * (p2.x + p1.x) + b * (p2.y + p1.y);
+//        double f = c * (p3.x + p1.x) + d * (p3.y + p1.y);
+//        double g = 2 * (a * (p3.y - p2.y) - b * (p3.x - p2.x));
+//
+//        if (g == 0) return null;
+//        else {
+//            double cx = (d * e - b * f) / g;
+//            double cy = (a * f - c * e) / g;
+//            return new Point(cx, cy);
+//        }
+//
+//    }
 
     public void solve() {
-        System.out.println("solve");
         Point center = new Point(0, 0);
         double max = 0;
-//        Перебор всех троек точек. Поиск окружности наибольшего радиуса
-        for (Point p1 : points) {
-            for (Point p2 : points) {
-                for (Point p3 : points) {
-                    Point centerCircle = curCircle(p1, p2, p3);
-                    if (centerCircle != null && dist(p3, centerCircle) > max) {
-                        max = dist(p3, centerCircle);
-                        center = centerCircle;
-                    }
-                }
-            }
+        Point p0 = new Point(0,0);
+        for (Point p: points){
+            p0.x += p.x;
+            p0.y += p.y;
         }
-        resultCircle = new Circle(new Vector2(center.x, center.y), max);
-        System.out.println(resultCircle);
+        p0.x /= points.size();
+        p0.y /= points.size();
+        for (Point p : points)
+            if (dist(p0, p) > max) max = dist(p0, p);
+        if (max != 0)
+            resultCircle = new Circle(new Point(p0.x, p0.y), max + 0);
     }
 
     /**
      * Загрузить задачу из файла
      */
     public void loadFromFile() {
+
         points.clear();
         try {
             File file = new File(FILE_NAME);

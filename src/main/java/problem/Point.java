@@ -13,7 +13,6 @@ public class Point {
      * y - координата точки
      */
     double y;
-    boolean isSolution;
 
     /**
      * Конструктор точки
@@ -45,8 +44,8 @@ public class Point {
      */
     void render(GL2 gl)
     {
-        Figures.renderPoint(gl, new Vector2(x,y), 3);
-        //Figures.renderCircle1(gl, new Vector2(0, 0), 0.5);
+        gl.glColor3d(1,1,1);
+        Figures.renderPoint(gl, new Point(x,y), 3);
     }
 
     /**
