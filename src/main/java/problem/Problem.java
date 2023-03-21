@@ -61,29 +61,6 @@ public class Problem {
         return Math.sqrt((p1.x - p2.x) * (p1.x - p2.x) + (p1.y - p2.y) * (p1.y - p2.y));
     }
 
-//    public boolean IsPointInCircle(double x, double y, double xc, double yc, double r) {
-//        return Math.sqrt((x - xc) * (x - xc) + (y - yc) * (y - yc)) <= r;
-//    }
-//
-//    public Point curCircle(Point p1, Point p2, Point p3) {
-//        double a = p2.x - p1.x;
-//        double b = p2.y - p1.y;
-//        double c = p3.x - p1.x;
-//        double d = p3.y - p1.y;
-//
-//        double e = a * (p2.x + p1.x) + b * (p2.y + p1.y);
-//        double f = c * (p3.x + p1.x) + d * (p3.y + p1.y);
-//        double g = 2 * (a * (p3.y - p2.y) - b * (p3.x - p2.x));
-//
-//        if (g == 0) return null;
-//        else {
-//            double cx = (d * e - b * f) / g;
-//            double cy = (a * f - c * e) / g;
-//            return new Point(cx, cy);
-//        }
-//
-//    }
-
     public void solve() {
         Point center = new Point(0, 0);
         double max = 0;
